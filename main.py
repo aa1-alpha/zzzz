@@ -1,39 +1,36 @@
-import login
-import signup
+from flask import Flask, render_template, request, redirect
 import users
-import delete
 
-def main():
-    while True:
-        print("\nWelcome to the Vault")
-        choice = input("What would you like to do?\n"
-                       "1. Create account\n"
-                       "2. Sign in to Account\n"
-                       "3. Delete account\n"
-                       "4. Exit\n")
+app = Flask(__name__)
 
-        if choice == "4":
-            print("Bye!")
-            break
-        elif choice == "3":
-            username = input("What is your username? ")
-            delete.delete_account(username)
-            
-        elif choice == "2":
-            user_name = input("What is your username ")
-            pass_word = input("What is your password ")
-            login.login(user_name, pass_word)
-          
-            # login.sign_in()  # Placeholder
-        elif choice == "1":
-            username =  input("what do you choose as you username ")
-            password = input("what do you choose as your password ")         
-            signup.signup(username, password)
-          
-           
-          
-        else:
-            print("Try again")
+@app.route('/')
+def home():
+    return render_template('index.html')
 
-# Run the main function
-main()
+@app.route('/signup', methods=['POST'])
+def signup():
+    username = request.form['username']
+    password = request.form['password']
+    if username in users.users:
+        return "User already exists."
+    users.users[username] = password
+    return f"Account created for {username}!"
+
+@app.route('/login', methods=['POST'])
+def login():
+    username = request.form['username']
+    password = request.form['password']
+    if username in users.users and users.users[username] == password:
+        return f"Welcome, {username}!"
+    return "Invalid username or password."
+
+@app.route('/delete', methods=['POST'])
+def delete():
+    username = request.form['username']
+    if username in users.users:
+        del users.users[username]
+        return f"Account {username} deleted."
+    return "User not found."
+
+if __name__ == '__main__':
+    app.run(debug=True)
