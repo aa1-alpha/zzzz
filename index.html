@@ -1,49 +1,30 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-    <meta charset="UTF-8">
     <title>Vault App</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            background-color: #0d1117;
-            color: #c9d1d9;
-            text-align: center;
-            padding: 50px;
-        }
-
-        h1 {
-            color: #58a6ff;
-        }
-
-        .btn {
-            display: inline-block;
-            padding: 12px 25px;
-            margin: 15px;
-            background-color: #238636;
-            color: white;
-            border: none;
-            border-radius: 8px;
-            font-size: 16px;
-            cursor: pointer;
-            text-decoration: none;
-        }
-
-        .btn:hover {
-            background-color: #2ea043;
-        }
-    </style>
 </head>
 <body>
+    <h1>Vault Account System</h1>
 
-    <h1>Welcome to the Vault App</h1>
-    <p>Your secure place to manage accounts.</p>
+    <h2>Sign Up</h2>
+    <form action="/signup" method="post">
+        Username: <input name="username" required><br>
+        Password: <input name="password" type="password" required><br>
+        <button type="submit">Sign Up</button>
+    </form>
 
-    <a href="#" class="btn">Sign Up</a>
-    <a href="#" class="btn">Log In</a>
-    <a href="#" class="btn">Delete Account</a>
+    <h2>Login</h2>
+    <form action="/login" method="post">
+        Username: <input name="username" required><br>
+        Password: <input name="password" type="password" required><br>
+        <button type="submit">Login</button>
+    </form>
 
-    <p style="margin-top: 40px; color: #8b949e;">This is a demo landing page. Backend is powered by Python.</p>
-
+    <h2>Delete Account</h2>
+    <form action="/delete" method="post">
+        Username: <input name="username" required><br>
+        <button type="submit">Delete</button>
+    </form>
 </body>
 </html>
+
